@@ -10,11 +10,11 @@ The goals / steps of this project are the following:
 * Estimate a bounding box for vehicles detected.
 
 [//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
+[image1]: ./output_images/car_notcar.png
+[image2]: ./output_images/car_hog.png
 [image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
+[image4]: ./output_images/draw_boxes.png
+[image5]: ./output_images/car_heatmap.png
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
@@ -52,15 +52,13 @@ I tried various combinations of parameters and finally choose to use the `YCrCb`
 
 ####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using extracted features as above descriped. Then I slipt 90% of the samlpes as trainning set, 10% as testing set. My test accuracy of SVC is 99.38%
+I trained a linear SVM using extracted features as above descriped. Then I slipt 90% of the samlpes as trainning set, 10% as testing set. My test accuracy of SVC is 98.65%
 
 ###Sliding Window Search
 
 ####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
-
-![alt text][image3]
+My code cell 6 impletmend a sliding window search just like in the lesson. From my testing, use scale 1.5 and 0.5 as overlap is good.
 
 ####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
@@ -72,7 +70,7 @@ Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spat
 ### Video Implementation
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./output.mp4)
 
 
 ####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
@@ -85,12 +83,6 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ![alt text][image5]
 
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
 
 
 ---
@@ -101,3 +93,4 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
 
+Actually, I just take the advantage of all the functions I have learned in this class. Combin and tune it to make the result as good as I can. Then I also refer to this [video](https://www.youtube.com/watch?v=P2zwrTM8ueA&feature=youtu.be&utm_medium=email&utm_campaign=2017-02-09_carnd_february_digest&utm_source=blueshift&utm_content=2017-02-09_carnd_monthlydigest&bsft_eid=692c214a-da20-4af0-a55a-5b590711f4ef&bsft_clkid=e73d5a13-ebce-4132-86ed-9c370e7df997&bsft_uid=85707f78-32e9-4dbb-9276-e4750220bcf9&bsft_mid=df9b180e-bf9b-4719-b691-112559ffeef7) and choose to use jupyter notebook as I think it's easy to use and more convinience to check the result. I know my solution is not good enough, it still has some false positives. I think I can improve it in following ways: 1) larger dataset 2) use CNN instead of SVC. 3) tract the detected vehicles and only select the ones can be detected in multi frames.
